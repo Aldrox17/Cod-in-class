@@ -1,0 +1,1842 @@
+extends Node2D
+
+func _ready():
+    var name = "cebolla"
+    print(name)
+    var numero_real = 5
+    var numero_decimal = 7.7
+    var booleano = true
+    var array = []
+    array = [1,2,3]
+    
+    print(array)
+    array[0] = "patata"
+    print(array[0])
+extends Node2D
+
+func _ready():
+    var coordenadas = Vector2(1.1, 7.18)
+    var coordenadas_entero = Vector2i(1,7)
+    
+    print(coordenadas_entero.x) #seleccionas las coordenadas x osea el 1 
+var coordenadas_3d = Vector3i(1,7,9)
+    var color = color(1,1,1)
+extends Node2D
+
+func _ready():
+    var vida_actual = 10
+    const vida_inicial = 100
+Ozymandias — 04/04/2024 23:22
+https://forum.godotengine.org/ preguntas y respuestas
+Godot Forum
+Godot Forum
+A place for the Godot community to meet, ask questions, share their work, and provide help to other users.
+Imagen
+Ozymandias — 04/04/2024 23:31
+Imagen
+Ozymandias — 05/04/2024 12:19
+// como hacer que se mueva un personaje:
+extends Area2D
+    
+var screenWidth
+var screenHeight
+var speed = 400.0
+
+func _ready():
+    screenWidth = get_viewport_rect().size.x
+    screenHeight = get_viewport_rect().size.y    
+
+func _process(delta): 
+    var direction = Vector2.ZERO
+    if Input.is_action_pressed("move_right") and position.x < screenWidth:
+        direction.x += 1
+    if Input.is_action_pressed("move_left") and position.x > 0:
+        direction.x -= 1
+    if Input.is_action_pressed("move_up") and position.y > 0:
+        direction.y -= 1
+    if Input.is_action_pressed("move_down") and position.y < screenHeight:
+        direction.y += 1
+
+    if direction.length() > 0:
+        direction = direction.normalized()
+
+    position += direction * speed * delta
+
+    position.x = clamp(position.x, 0, screenWidth)
+    position.y = clamp(position.y, 0, screenHeight)
+
+#ahora recuerda darle clic en Proyecto -> Configuración del proyecto para abrir la ventana de configuración del proyecto y haga clic en la pestaña Mapa de Entrada en la parte superior.
+ 
+Ozymandias — 05/04/2024 13:47
+mas avanzado el codigo de camina con animacion :
+extends Area2D
+    
+var screenWidth # var para limite de pantalla
+var screenHeight # var para limite de pantalla
+var speed = 400.0
+#funcion para limite de pantalla
+func _ready():
+    screenWidth = get_viewport_rect().size.x
+    screenHeight = get_viewport_rect().size.y    
+#el personaje camina
+func _process(delta): 
+    var direction = Vector2.ZERO
+    if Input.is_action_pressed("move_right") and position.x < screenWidth:
+        direction.x += 1
+    if Input.is_action_pressed("move_left") and position.x > 0:
+        direction.x -= 1
+    if Input.is_action_pressed("move_up") and position.y > 0:
+        direction.y -= 1
+    if Input.is_action_pressed("move_down") and position.y < screenHeight:
+        direction.y += 1
+
+    if direction.length() > 0:
+        direction = direction.normalized()
+
+    position += direction * speed * delta
+    #para limite de pantalla
+    position.x = clamp(position.x, 0, screenWidth)
+    position.y = clamp(position.y, 0, screenHeight)
+        #Seleccionar animaciones
+    if direction.x != 0:
+        $AnimatedSprite2D.play("walk")
+        $AnimatedSprite2D.flip_v = false
+        $AnimatedSprite2D.flip_h = direction.x < 0
+    elif direction.y != 0:
+        $AnimatedSprite2D.play("up")
+        $AnimatedSprite2D.flip_v = direction.y > 0
+Ozymandias — 10/04/2024 11:52
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        String nombre;
+        char categoria;
+        int tarifa;
+        double horas, sueldo;
+        
+        nombre = txtNombre.getText();
+        categoria = txtCategoria.getText().charAt(0);
+        
+        tarifa = Integer.parseInt(txtTarifa.getText());
+        horas = Double.parseDouble(txtHoras.getText());
+        
+        sueldo = tarifa * horas;
+        
+        txaResultado.setText("");
+        txaResultado.append("Colaborador = "+ nombre + "\n");
+        txaResultado.append("sueldo = "+ sueldo);
+    } 
+Imagen
+Ozymandias — 10/04/2024 12:22
+private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        int dia;
+        dia = Integer.parseInt(txtNumero.getText());
+
+if(dia < 1 || dia > 2){
+            txaResultado.append("ERROR CTMR");
+        }
+        
+        switch(dia){
+        case 1: txaResultado.append("Lunes"); break;
+        case 2: txaResultado.append("Martes"); break;
+        case 3: txaResultado.append("Miercoles"); break;
+        case 4: txaResultado.append("Jueves"); break;
+        case 5: txaResultado.append("Viernes"); break;
+        case 6: txaResultado.append("Sabado"); break;
+        case 7: txaResultado.append("Domingo"); break;
+    }                                          
+    }
+ 
+Imagen
+Ozymandias — 17/04/2024 9:51
+public class Frmprincipal extends javax.swing.JFrame {
+
+    char vocales[]={'A','E','I','O','U'};
+    
+    public Frmprincipal() 
+    {
+        initComponents();
+    }
+
+private void btnMostrar_InicioActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+        
+        int i;
+        txaResultado.setText("");
+        
+        for(i=0;i<5;i++){
+            
+        txaResultado.append(vocales[i] + "\n");
+            
+        }
+        
+    }                                                 
+
+    private void btnMostrar_FinalActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+        int i;
+        txaResultado.setText("");
+        
+        for(i=4; i>=0; i=i-1){
+            txaResultado.append(vocales[i] + "\n");
+        }
+    }      
+Imagen
+Ozymandias — 17/04/2024 10:42
+public class Ventana extends javax.swing.JFrame {
+
+   int aleatorios[]; //declarar el vector
+   int n;
+    
+    public Ventana() 
+    {
+        initComponents();
+                
+        n = 8;
+        aleatorios = new int[8];
+    }
+
+    
+        });                      
+
+    private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        int i,LimInf=10,LimSup=99;
+
+        for(i=0;i<8;i++)
+            aleatorios[i] = (int)(Math.random()*(LimSup - LimInf + 1)) + LimInf;
+
+        JOptionPane.showMessageDialog(this,"Mensaje hola toka keke");
+
+    }                                          
+
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        int i;
+        
+        txaResultado.setText("");
+        
+        for(i=0; i<8; i++){
+            txaResultado.append(aleatorios[i]+"\n");
+        }
+    }
+ 
+Imagen
+Ozymandias — 17/04/2024 11:31
+public class Ventana extends javax.swing.JFrame {
+
+    int canales[];
+    int n, contar;
+    
+    public Ventana() {
+        initComponents();
+        
+        n = 83;
+        contar = 0;
+        canales = new int[n];
+        
+    }
+private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        
+        canales[contar] = Integer.parseInt(txtNumero.getText());
+        contar = contar + 1;
+        
+        txtNumero.setText("");
+        txtNumero.requestFocus();
+    }                                            
+
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        int i;
+        txaResultado.setText("");
+        
+        for(i=0; i<contar; i++){
+            txaResultado.append(canales[i] + "\n");
+        }
+    }
+Imagen
+Ozymandias — 17/04/2024 12:29
+public class Ventana extends javax.swing.JFrame {
+
+    VectorNro vectorDeCanales;
+    int n;
+    
+    public Ventana() {
+        initComponents();
+        
+        n = 86;
+        vectorDeCanales = new VectorNro(86);
+        
+    }
+ private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        int aux;
+        
+        aux = Integer.parseInt(txtNumer.getText());
+        vectorDeCanales.adicionar(aux);
+        
+        txtNumer.setText("");
+        txtNumer.requestFocus();
+    }                                            
+
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        
+        int i;
+        txaResultado.setText("");
+        
+        for(i=0; i<vectorDeCanales.getContar(); i++){
+            txaResultado.append((int)vectorDeCanales.getElmentos(i)+ "\n");
+        }
+        
+    } 
+Vector.java
+public class VectorNro {
+    
+    
+   private double elementos[];
+   private int contar;
+    
+    public VectorNro(int tamaño)
+    {
+        contar = 0;
+        elementos = new double[tamaño];
+    }
+    
+    public int getContar()
+    {
+        return contar;
+    }
+    
+    public double getElmentos(int poa)
+    {
+        return elementos[poa];
+    }
+    
+    public void adicionar(double dato)
+    {
+        elementos[contar] = dato;
+        contar = contar +1;
+    }
+    
+} 
+Imagen
+Ozymandias — 24/04/2024 9:58
+package proicesos; //taba mal escrito ya desde la descarga
+
+public class VectorNros
+{
+    private double elemento[];
+    private int conta;
+    
+    public VectorNros(int tamaño)
+    {
+        conta = 0;
+        elemento = new double[tamaño];
+    }
+        
+    public int getConta()   { return conta; }
+    
+    public double getElemento(int pos)  { return elemento[pos]; }
+    
+    public void adicionar(double dato)
+    {
+        elemento[conta] = dato;
+        conta = conta + 1;
+    }
+    
+    public int buscarSecuencial(double dato)    // Búsqueda secuencial
+    {
+        int i;
+                
+        for (i = 0; i < conta; i=i+1)
+            if (elemento[i] == dato)
+                return i;
+
+        return -1;
+    }
+    
+    public int buscarBinaria(double dato)      // Búsqueda binaria
+    {
+        int limInf, limSup, medio;
+
+        ordenar();   // Requisito
+
+        limInf = 0;
+        limSup = conta - 1;
+
+        do
+        {
+            medio = (limInf + limSup) / 2;
+
+            if (dato == elemento[medio])
+                return medio;
+
+            if (dato < elemento[medio])
+                limSup = medio - 1;
+            else
+                limInf = medio + 1;
+        }
+        while(limInf <= limSup);
+
+        return -1;
+    }
+        
+    public void modificar(double dato, int pos)
+    {
+        elemento[pos] = dato;
+    }
+    
+    public void eliminar(int pos)
+    {
+        int i;
+
+        for (i = pos; i < (conta-1); i=i+1)
+            elemento[i] = elemento[i + 1];
+
+        conta = conta - 1;
+    }
+    
+    public void ordenar() {}
+}
+ 
+Ozymandias — 24/04/2024 11:37
+private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        // TODO add your handling code here:
+        int aux;
+        
+        aux = Integer.parseInt(txtNro.getText());
+        vectorDeCanales.adicionar(aux);
+        
+        limpiar();
+    }                                            
+
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        // TODO add your handling code here:
+        int i;
+        txaResultado.setText("");
+        
+        for(i=0; i<vectorDeCanales.getConta(); i=i+1)
+            txaResultado.append((int)vectorDeCanales.getElemento(i) + "\n");
+    }                                          
+
+    private void btnBuscarSecuencialActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+        int aux;
+        int pos;
+        
+        aux = Integer.parseInt(txtNro.getText());
+        pos = vectorDeCanales.buscarSecuencial(aux);
+        
+        if(pos != -1)
+            JOptionPane.showMessageDialog(this,"Esta en la posicion: "+ pos);
+        else
+            JOptionPane.showMessageDialog(this,"No esta causa");
+        
+    }                                                   
+
+    private void btnBuscarBinariaActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+        
+        int aux;
+        int pos;
+        
+        aux = Integer.parseInt(txtNro.getText());
+        pos = vectorDeCanales.buscarBinaria(aux);
+        
+        if(pos != -1)
+            JOptionPane.showMessageDialog(this,"Esta en la posicion: "+ pos);
+        else
+            JOptionPane.showMessageDialog(this,"No esta broer");
+        
+    }
+private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        
+        int aux;
+        int pos;
+        
+        aux = Integer.parseInt(txtNro.getText());
+        pos = vectorDeCanales.buscarSecuencial(aux);
+        
+        if(pos != -1)
+        {
+            aux = Integer.parseInt(txtReemplazo.getText());
+            vectorDeCanales.modificar(aux, pos);
+            JOptionPane.showMessageDialog(this,"Canales modificado");
+        }
+        else
+            JOptionPane.showMessageDialog(this,"No esta pe");
+        
+    }                                            
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        
+        int aux;
+        int pos;
+        
+        aux = Integer.parseInt(txtNro.getText());
+        pos = vectorDeCanales.buscarSecuencial(aux);
+        
+        if(pos != -1)
+        {
+            vectorDeCanales.eliminar(pos);
+            JOptionPane.showMessageDialog(this,"Se elimino la wa esa");
+        }
+        else
+            JOptionPane.showMessageDialog(this,"No esta causa");
+        
+    }
+Imagen
+Ozymandias — 24/04/2024 11:38
+Esto y los codigos del panel que esta arriba son todo de un solo proyecto
+Ozymandias — 09/05/2024 14:18
+EP1 PREGUNTA 5 
+a)
+public int buscarSecuencial(double dato) {
+    int i;
+    comparaciones = 0; 
+
+    for (i = 0; i < conta; i = i + 1) {
+        comparaciones++; 
+        if (elemento[i] == dato)
+            return i;
+    }
+
+    return -1;
+}
+EP1 PREGUNTA 5
+b)
+public class VectorNros {
+    private double elemento[];
+    private int conta;
+    private int comparaciones; 
+
+    public VectorNros(int tamaño) {
+        conta = 0;
+        elemento = new double[tamaño];
+        comparaciones = 0; 
+    }
+    public int getComparaciones() {
+        return comparaciones;
+    }
+}
+Ozymandias — 09/05/2024 14:36
+public void ordenar() {
+    int n = conta;
+    boolean intercambiado;
+
+    do {
+        intercambiado = false;
+        for (int i = 1; i < n; i++) {
+            if (elemento[i - 1] > elemento[i]) 
+                double temp = elemento[i - 1];
+                elemento[i - 1] = elemento[i];
+                elemento[i] = temp;
+                intercambiado = true;
+            }
+        }
+        n--;
+    } while (intercambiado);
+}
+Ozymandias — 15/05/2024 9:38
+public class ListaSimpleNros
+{
+    public Nodo inicio;
+    
+    public ListaSimpleNros()
+    {
+        inicio = null;
+    }
+
+    public Nodo retornarUltimo()
+    {
+        Nodo p = inicio;
+
+        while (p.sgte != null)
+            p = p.sgte;
+
+        return p;
+    }
+
+    public void adicionar(double dato)
+    {
+        Nodo nuevo, ultimo;
+        nuevo = new Nodo();
+
+        nuevo.info = dato;
+        nuevo.sgte = null;
+
+        if (inicio == null)
+            inicio = nuevo;
+        else
+        {
+            ultimo = retornarUltimo();
+            ultimo.sgte = nuevo;
+        }
+    }
+
+    public int contar()
+    {
+        int conta = 0;
+        Nodo p = inicio; 
+
+        while (p != null)
+        {
+            conta = conta + 1;
+            p = p.sgte;
+        }
+        return conta; 
+    }
+
+    public Nodo buscar(double dato)
+    { //Busqueda Secuencial
+        Nodo p = inicio;
+
+        while (p != null)
+        {
+            if (p.info == dato)
+                return p;
+
+            p = p.sgte;
+        }
+        return null;
+    }
+}
+Ozymandias — 15/05/2024 9:38
+public class Nodo 
+{
+    public double info;
+    public Nodo sgte;
+}
+Ozymandias — 15/05/2024 9:58
+public Nodo retornarUltimo()//devuelve la direccion de memoria del ultimo elemento
+    {
+        Nodo p = inicio;
+
+        while (p.sgte != null)
+            p = p.sgte;
+
+        return p;
+    }
+    
+    public Nodo retornarAnterior(Nodo q) //devielve la direccion de memoria del elemento anterior a q
+    {
+        Nodo p = inicio;
+        
+        while (p.sgte != q)
+            p=p.sgte;
+        
+        return p;
+    }
+Ozymandias — 15/05/2024 10:40
+private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {                                            
+       int aux;
+       Nodo p;
+       
+       aux = Integer.parseInt(txtNro.getText());
+       p = listaDeCanales.buscar(aux);
+       
+       if (p != null)
+       {
+           listaDeCanales.eliminar(p);
+           JOptionPane.showMessageDialog(this, "Canal Eliminado");
+       }
+       else
+           JOptionPane.showMessageDialog(this, "Canal no esta en la lista");
+        
+    } 
+Ozymandias — 15/05/2024 11:31
+public void eliminar(Nodo actual)
+    {
+        Nodo anterior;
+
+        if (actual == inicio)
+            inicio = actual.sgte;
+        else
+        {
+            anterior = retornarAnterior(actual);
+            anterior.sgte = actual.sgte;
+        }
+    }
+    
+    public void ordenar()
+    {
+        Nodo p, q;
+        double tempo;
+        
+        p = inicio;
+        while(p.sgte != null)
+        {
+            q = p.sgte;
+            while(q != null)
+            {
+                if(p.info > q.info)
+                {
+                    tempo = p.info;
+                    p.info = q.info;
+                    q.info = tempo;
+                }
+                q = q.sgte;
+            }
+            p = p.sgte;
+        }
+    }
+Ozymandias — 15/05/2024 12:20
+public void insertarAlInicio(double dato)
+    {
+        Nodo nuevo = new Nodo(); // Crear un nuevo nodo
+    nuevo.info = dato; // Asignar el dato al nuevo nodo
+    
+    if (inicio == null) {
+        inicio = nuevo; // Si la lista está vacía, el nuevo nodo es el inicio
+    } else {
+        nuevo.sgte = inicio; // El siguiente del nuevo nodo apunta al actual inicio
+        inicio = nuevo; // El nuevo nodo se convierte en el inicio
+    }
+    }
+Ozymandias — 22/05/2024 15:22
+package procesos;
+
+public class ListaSimpleCaracteres
+{
+    public Nodo inicio;
+    
+    public ListaSimpleCaracteres()
+    {
+        inicio = null;
+    }
+    
+    public Nodo retornarUltimo()
+    {
+        Nodo p = inicio;
+        
+        while(p.sgte != null)
+            p = p.sgte;
+        
+        return p;
+    }
+    
+    public Nodo retornarAnterior(Nodo q)
+    {
+        Nodo p = inicio;
+        
+        while(p.sgte != q)
+            p = p.sgte;
+        
+        return p;
+    }
+    
+    public void adicionar(String dato)
+    {
+        Nodo nuevo, ultimo;
+        
+        nuevo = new Nodo();
+        nuevo.info = dato;
+        nuevo.sgte = null;
+        
+        if(inicio == null)
+            inicio = nuevo;
+        else
+        {
+            ultimo = retornarUltimo();
+            ultimo.sgte = nuevo;
+        }
+    }
+    
+    public Nodo buscar(String dato)
+    {
+        Nodo p = inicio;
+        
+        while(p != null)
+        {
+            if(p.info.equals(dato))
+                return p;
+            
+            p = p.sgte;
+        }
+        return null;
+    }
+    
+    public void ordenar()
+    {
+        // implementar
+    }
+    
+    public void insertarDespues(String dato, Nodo actual)
+    {
+        // implementar
+    }
+    
+    public void insertarAntes(String dato, Nodo actual)
+    {
+        // implementar
+    }
+}
+package procesos;
+
+public class Nodo
+{
+    public String info;
+    public Nodo sgte;
+}
+package procesos;
+
+public class ListaSimpleNros
+{
+    public Nodo inicio;
+
+    public ListaSimpleNros()
+    {
+        inicio = null;
+    }
+    
+    public Nodo retornarUltimo()
+    {
+        Nodo p = inicio;
+
+        while (p.sgte != null)
+            p = p.sgte;
+
+        return p;
+    }
+
+    public Nodo retornarAnterior(Nodo q)
+    {
+        Nodo p = inicio;
+
+        while (p.sgte != q)
+            p = p.sgte;
+
+        return p;
+    }
+
+    public void adicionar(double dato)
+    {
+        Nodo nuevo, ultimo;
+        nuevo = new Nodo();
+
+        nuevo.info = dato;
+        nuevo.sgte = null;
+
+        if (inicio == null)
+            inicio = nuevo;
+        else
+        {
+            ultimo = retornarUltimo();
+            ultimo.sgte = nuevo;
+        }
+    }
+
+    public int contar()
+    {
+        int conta = 0;
+        Nodo p = inicio;
+
+        while (p != null)
+        {
+            conta = conta + 1;
+            p = p.sgte;
+        }
+        return conta;
+    }
+
+    public Nodo buscar(double dato)
+    {
+        Nodo p = inicio;
+
+        while (p != null)
+        {
+            if (p.info == dato)
+                return p;
+
+            p = p.sgte;
+        }
+        return null;
+    }
+    
+    public void eliminar(Nodo actual)
+    {
+        Nodo anterior;
+
+        if (actual == inicio)
+            inicio = actual.sgte;
+        else
+        {
+            anterior = retornarAnterior(actual);
+            anterior.sgte = actual.sgte;
+        }
+    }
+    
+    public void ordenar()
+    {
+        Nodo p, q;
+        double tempo;
+        
+        p = inicio;
+        while(p.sgte != null)
+        {
+            q = p.sgte;
+            while(q != null)
+            {
+                if(p.info > q.info)
+                {
+                    tempo = p.info;
+                    p.info = q.info;
+                    q.info = tempo;
+                }
+                q = q.sgte;
+            }
+            p = p.sgte;
+        }
+    }
+
+}
+package procesos;
+
+public class Nodo 
+{
+    public double info;
+    public Nodo sgte;
+}
+Ozymandias — 29/05/2024 9:42
+public class FrmPrincipal extends javax.swing.JFrame {
+    //declarando un vector, para una matris dos corchetes
+    int matriculados[][];
+    int fil, col;
+    
+    public FrmPrincipal() {
+        initComponents();
+        
+        fil = 2;
+        col = 3;
+        matriculados = new int[fil][col];
+        
+        matriculados[0][0] = 16;
+        matriculados[0][1] = 24;
+        matriculados[0][2] = 20;
+        
+        matriculados[1][0] = 24;
+        matriculados[1][1] = 30;
+        matriculados[1][2] = 26;
+        
+    }
+Ozymandias — 29/05/2024 9:57
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        
+        //con este metodo se muestra en forma de matris el resultado
+        
+        int i, j;
+        
+        txaResultado.setText("");
+        
+        for(i=0; i < fil; i++){//ahi empieza a subir i
+            for(j = 0; j < col; j++)//el primero en aunmento es j, hasta que llega al limite
+                txaResultado.append(matriculados[i][j] + "\t" ); 
+            
+        txaResultado.append("\n");
+        }
+        
+    }      
+Ozymandias — 29/05/2024 10:31
+public class FrmPrincipal extends javax.swing.JFrame {
+    
+    int matriculados[][] = {{16,24,20}, {24,30,26} };
+    int fil, col;
+    
+    public FrmPrincipal() {
+        initComponents();
+        
+        fil = matriculados.length; //numero de filas
+        col = matriculados[0].length; //numero de columnas
+        
+    }
+
+    private void btnTurnoActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        
+        int j, i, acum;
+        
+        for(i = 0; i < fil; i++){
+            
+            acum = 0; //cada ves que entra a una nueva fila se reinicia el acumulador
+                for(j = 0; j<col; j++)
+            acum = acum + matriculados[i][j];
+                
+            txaTurno.append(acum + "\n" );
+        }
+        
+    }
+ 
+Imagen
+Ozymandias — 29/05/2024 12:15
+ 
+Imagen
+public class FryPrincipal extends javax.swing.JFrame {
+    
+    int notas[][];
+    int fil, col;
+
+    public FryPrincipal() {
+        initComponents();
+        
+        fil = 10;
+        col = 3;
+        
+        notas = new int[fil][col];
+        
+    }
+    
+    public void generar(){
+        int i, j, limInf = 0, limSup = 20;
+    
+    for (i = 0; i < fil; i++) {
+        for (j = 0; j < col; j++) {
+            notas[i][j] = (int) (Math.random() * (limSup - limInf + 1)) + limInf;
+        }
+    }
+    }
+    
+    public void mostrar(){
+        int i,j;
+        txaResultado.setText("");
+        
+        for(i=0; i<fil;i++)
+            
+            {
+                for(j=0;j<col;j++)
+                txaResultado.append(notas[i][j] + "\t");
+        
+        txaResultado.append("\n");
+            }
+    }    
+private void btnFinalActionPerformed(java.awt.event.ActionEvent evt) {                                         
+      int i,j, conta = 0;
+      for(i=0;i<fil;i++)
+          if(notas[i][2] >= 13)
+              conta++;
+      JOptionPane.showMessageDialog(this, "La cantidad de aprobados es: " + conta);
+    }                                        
+
+    private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {                                           
+           generar();
+           mostrar();
+    }                                          
+
+    private void btnPromedioActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        int i,j,acum;
+        double prom;
+        
+        txaPromedio.setText("");
+        
+        for(i=0;i<fil;i++)
+        {
+            acum = 0;
+            for(j=0;j<col;j++)
+                acum = acum + notas[i][j];
+            
+            prom = (double)acum / col;
+            prom = Math.round(prom);
+    
+                    txaPromedio.append(prom + "\n");}
+    }   
+Ozymandias — 05/06/2024 9:46
+Java Class
+package procesos;
+
+public class PilaVectorNros
+{
+    private double elemento[];
+    private int cima;
+
+    public PilaVectorNros(int tam)
+    {
+        elemento = new double[tam];
+        cima = -1;
+    }
+
+    public int getCima()
+    {
+        return cima;
+    }
+
+    public double getElemento(int pos)
+    {
+        return elemento[pos];
+    }
+    
+    public void poner(double dato)
+    {
+        cima++;
+        elemento[cima] = dato;
+    }
+
+    public void sacar()
+    {
+        cima = cima - 1;
+    }
+}
+Ventana
+public class FrmPrincipal extends javax.swing.JFrame
+{
+    PilaVectorNros pilaDeCanales;
+    int n;
+
+    public FrmPrincipal()
+    {
+        initComponents();
+        setLocationRelativeTo(this);
+        
+        n = 5;
+        pilaDeCanales = new PilaVectorNros(n);
+    }
+    
+    public void limpiar()
+    {
+        txtNro.setText("");
+        txtNro.requestFocus();
+    }
+    
+    public void mostrarContenido()
+    {
+        int i;
+
+        txaResultado.setText("");
+        lblCima.setText("cima = " + pilaDeCanales.getCima());
+
+        for (i = n - 1; i > pilaDeCanales.getCima(); i--)
+            txaResultado.append("\n");
+
+        for (i = pilaDeCanales.getCima(); i >= 0; i--)
+            txaResultado.append((int)pilaDeCanales.getElemento(i) + "\n");
+    }
+private void btnPonerActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // TODO add your handling code here:
+        double aux;
+
+        if (pilaDeCanales.getCima() == n - 1)
+            JOptionPane.showMessageDialog(this, "La Pila está llena");
+        else
+        {
+            aux = Double.parseDouble(txtNro.getText());
+            pilaDeCanales.poner(aux);
+            mostrarContenido();
+        }
+        limpiar();
+    }                                        
+
+    private void btnSacarActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // TODO add your handling code here:
+        if(pilaDeCanales.getCima() == -1)
+            JOptionPane.showMessageDialog(this, "La Pila está vacía");
+        else
+        {
+            pilaDeCanales.sacar();
+            mostrarContenido();
+        }
+        limpiar();
+    }               
+ 
+Ozymandias — 12/06/2024 11:25
+package procesos;
+
+public class ColaVectorNros
+{
+    private double elemento[];
+    private int frente, fiinal, n;
+            
+    public ColaVectorNros(int tam)
+    {
+        elemento = new double[tam];
+        n = tam;
+
+        frente = -1;
+        fiinal = -1;
+    }
+    
+    public int getFrente()  { return frente; }
+
+    public int getFinal()   { return fiinal; }
+
+    public double    getElemento(int pos)  { return elemento[pos]; }
+
+    public void adicionar(double dato)
+    {
+        if (frente == -1)
+        {
+            frente = 0;
+            fiinal = 0;
+        }
+        else
+            if (fiinal == n - 1)
+                fiinal = 0;
+            else
+                fiinal = fiinal + 1;
+
+        elemento[fiinal] = dato;
+    }
+
+    public double atender()
+    {
+        double aux;
+        
+        aux = elemento[frente];
+                
+        if (frente == fiinal)
+        {
+            frente = -1;
+            fiinal = -1;
+        }
+        else
+            if (frente == n - 1)
+                frente = 0;
+            else
+                frente = frente + 1;
+        
+        return aux;
+    }
+}
+ 
+public class FrmPrincipal extends javax.swing.JFrame
+{
+    ColaVectorNros colaDeCanales;
+    int n;
+
+    public FrmPrincipal()
+    {
+        initComponents();
+        setLocationRelativeTo(this);
+        
+        n = 5;
+        colaDeCanales = new ColaVectorNros(n);
+    }
+    
+    public void mostrarContenidoUser()  // formato de salida para el usuario
+    {
+        int i;
+        txaResultadoUser.setText("");
+
+        if (colaDeCanales.getFrente() <= colaDeCanales.getFinal())
+            for (i = colaDeCanales.getFrente(); (i <= colaDeCanales.getFinal() && i >= 0); i++)
+                txaResultadoUser.append((int)colaDeCanales.getElemento(i) + "  ");
+        else
+        {
+            for (i = colaDeCanales.getFrente(); i < n; i++)
+                txaResultadoUser.append((int)colaDeCanales.getElemento(i) + "  ");
+
+            for (i = 0; i <= colaDeCanales.getFinal(); i++)
+                txaResultadoUser.append((int)colaDeCanales.getElemento(i) + "  ");
+        }
+    }
+
+    public void mostrarContenido()  // formato de salida para nosotros
+    {
+        int i;
+
+        txaResultado.setText("");
+        lblFrente.setText("frente = " + colaDeCanales.getFrente());
+        lblFinal.setText("final = " + colaDeCanales.getFinal());
+
+        if (colaDeCanales.getFrente() <= colaDeCanales.getFinal())
+        {
+            for (i = 0; i < colaDeCanales.getFrente(); i++)
+                txaResultado.append("      ");
+
+            for (i = colaDeCanales.getFrente(); (i <= colaDeCanales.getFinal() && i >= 0); i++)
+                txaResultado.append((int)colaDeCanales.getElemento(i) + "  ");
+        }
+else
+        {
+            for (i = 0; i <= colaDeCanales.getFinal(); i++)
+                txaResultado.append((int)colaDeCanales.getElemento(i) + "  ");
+
+            for (i = colaDeCanales.getFinal() + 1; i < colaDeCanales.getFrente(); i++)
+                txaResultado.append("      ");
+
+            for (i = colaDeCanales.getFrente(); i < n; i++)
+                txaResultado.append((int)colaDeCanales.getElemento(i) + "  ");
+        }
+        txtNro.setText("");
+        txtNro.requestFocus();
+    }
+private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        // TODO add your handling code here:
+        int aux;
+
+        if ((colaDeCanales.getFrente()== 0 && colaDeCanales.getFinal() == n - 1) ||
+            (colaDeCanales.getFrente() == colaDeCanales.getFinal() + 1))
+            JOptionPane.showMessageDialog(this, "La Cola está llena");
+        else
+        {
+            aux = Integer.parseInt(txtNro.getText());
+            colaDeCanales.adicionar(aux);
+            
+            mostrarContenidoUser();
+            mostrarContenido();
+        }
+    }                                            
+
+    private void btnAtenderActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        // TODO add your handling code here:
+        if (colaDeCanales.getFrente() == -1)
+            JOptionPane.showMessageDialog(this, "La Cola está vacía");
+        else
+        {
+            colaDeCanales.atender();
+
+            mostrarContenidoUser();
+            mostrarContenido();
+        }
+    }
+Ozymandias — 19/06/2024 10:30
+public class FrmPrincipal extends javax.swing.JFrame
+{
+
+    public FrmPrincipal() 
+    {
+        initComponents();
+        setLocationRelativeTo(this);
+    }
+    
+    public void mostrar(int i)  // método recursivo
+    {
+        if(i > 0)
+        {
+            txaResultado.append(i + "\n");
+            mostrar(i-1);
+        }
+    }
+ public int sumar(int i)     // método recursivo
+    {
+        if(i <= 0)
+            return 0;
+        else
+            return i + sumar(i-1);
+    }
+private void btnMostrarIterativoActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+        int i, n;
+        txaResultado.setText("");
+        
+        n = Integer.parseInt(txtNro.getText());
+        mostrar(n);
+        
+    } 
+private void btnSumarIterativoActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+        
+        int i, n,acumulador=0;
+        txaResultado.setText("");
+        
+        n = Integer.parseInt(txtNro.getText());
+        for(i=1; i<=n; i++){
+            acumulador=acumulador+i;
+        }
+        JOptionPane.showMessageDialog(this, "suma iterativa " + acumulador);
+    }                                                 
+    
+    private void btnSumarRecursivoActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+       int n, s;
+       
+       n = Integer.parseInt(txtNro.getText());
+       s = sumar(n);
+       
+       JOptionPane.showMessageDialog(this, "suma recursiva " + s);
+        
+    }
+Ozymandias — 19/06/2024 11:36
+public class FrmPrincipal extends javax.swing.JFrame
+{
+
+    public FrmPrincipal()
+    {
+        initComponents();
+        setLocationRelativeTo(this);
+    }
+    
+    public void mostrar(int i)  // método recursivo
+    {
+        if(i >= 20) // 1)si cumple esta condicion
+        {
+            if(i%3 == 0) // 4)recien entra acá
+            {
+                txaResultado.append(i + "\n");
+                mostrar(i-1);
+            }
+            else // 3)cuando se vuelva mutiplo de 3
+                mostrar(i-1); // 2)viene aqui
+        }
+    }
+    
+    public int contar(int i)     // método recursivo
+    {
+        if(i < 20)
+            return 0;
+        else
+            if(i%3 == 0) //recien entra acá
+                return 1 + contar(i-1);
+            else
+                return contar(i-1); //cuando se vuelva mutiplo de 3
+    }
+private void btnMostrarIterativoActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+        int i;
+        
+        txaResultado.setText("");
+        for(i=20;i<=30;i++){ //el valor inicla de i es 20 y 20 no es mayor o igual qe 30 entonces va en aumento, una ves llegue a 30 empieza
+            if(i%3 ==0)
+                txaResultado.append(i + "\n");
+        }
+        
+    }                                                   
+
+    private void btnMostrarRecursivoActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+
+        txaResultado.setText("");
+        mostrar(30); //solo invocas el metodo
+        
+    }                                                   
+
+    private void btnContarIterativoActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+        
+        int i, acum=0;
+        txaResultado.setText("");
+        for(i=20;i<=30;i++){
+            if(i%3 ==0)
+                acum++;
+        }
+        txaResultado.append(acum+ " ");
+        
+    }
+Ozymandias — 19/06/2024 11:36
+private void btnContarRecursivoActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+        int c;
+        txaResultado.setText("");
+        c = contar(30);
+        JOptionPane.showMessageDialog(this, "Resultado Recursivo: " + c );
+        
+    }
+Ozymandias — 26/06/2024 10:09
+    public FrmPrincipal()
+    {
+        initComponents();
+        setLocationRelativeTo(this);
+        
+        cmbDiscos.addItem("<seleccionar>");
+        
+        for(int i=1; i<=8; i=i+1)
+            cmbDiscos.addItem(i + "");
+    }    
+public void moverDiscos(int nro, char origen, char destino, char tempo)
+    {
+        if(nro > 0)
+        {
+            moverDiscos(nro -1, origen, tempo, destino);
+            txaResultado.append(origen + " -->" + destino + "\n");
+            moverDiscos(nro-1, tempo,destino,origen);
+        }
+    }
+    
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        
+        int n;
+        txaResultado.setText("");
+        
+        n = cmbDiscos.getSelectedIndex();
+        moverDiscos(n, 'A', 'C', 'B');
+    }                                          
+Ozymandias — 26/06/2024 10:48
+package procesos;
+
+public class VectorNros
+{
+    private double elemento[];
+    private int conta;
+    
+    public VectorNros(int tamaño)
+    {
+        conta = 0;
+        elemento = new double[tamaño];
+    }
+    
+    public int getConta()   { return conta; }
+    
+    public double getElemento(int pos)  { return elemento[pos]; }
+    
+    public void limpiar()
+    {
+        conta = 0;
+    }
+    
+    public void adicionar(double dato)
+    {
+        elemento[conta] = dato;
+        conta = conta + 1;
+    }
+            
+    public double sumar(int i)  // método recursivo
+    {
+        if(i < 0)
+            return 0;
+        else
+            return elemento[i] + sumar(i-1);
+    }
+}
+public class FrmPrincipal extends javax.swing.JFrame
+{
+    VectorNros temperaturas;
+    int n;
+    double prom;
+
+    public FrmPrincipal()
+    {
+        initComponents();
+        setLocationRelativeTo(this);
+        
+        n = 7;
+        temperaturas = new VectorNros(n);
+    }
+
+    public void mostrar(int i)  // método recursivo
+    {
+        if(i >= 0)
+        {
+            txaResultado.append(temperaturas.getElemento(i) + "\n");
+            mostrar(i-1);
+        }
+    }
+private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        // TODO add your handling code here:
+        int i, limInf=145, limSup=225;
+        double aux;
+        temperaturas.limpiar();
+        
+        for(i=1; i<=n; i=i+1)
+        {
+            aux = (int)(Math.random() * (limSup-limInf+1)) + limInf;
+            aux = aux / 10.0;
+            temperaturas.adicionar(aux);
+        }
+        JOptionPane.showMessageDialog(this, "Temperaturas almacendas en el Vector");
+    }                                          
+
+    private void btnMostrarIterativoActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+        // TODO add your handling code here:
+        int i;
+        txaResultado.setText("");
+        
+        for(i=0; i<n; i=i+1)
+            txaResultado.append(temperaturas.getElemento(i) + "\n");
+    }                                                   
+        
+    private void btnMostrarRecursivoActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+        // TODO add your handling code here:
+        txaResultado.setText("");
+        mostrar(n-1);
+    }                                                   
+    private void btnCalcularPromIterativoActionPerformed(java.awt.event.ActionEvent evt) {                                                         
+        // TODO add your handling code here:
+        int i;
+        double acum=0;
+        
+        for(i=0; i<n; i=i+1)
+            acum = acum + temperaturas.getElemento(i);
+        
+        prom = acum / n;
+        JOptionPane.showMessageDialog(this, "Promedio iterativo: " + prom);
+    }                                                        
+
+    private void btnCalcularPromRecursivoActionPerformed(java.awt.event.ActionEvent evt) {                                                         
+        // TODO add your handling code here:
+        double s;
+        
+        s = temperaturas.sumar(n-1);
+        prom = s / n;
+        
+        JOptionPane.showMessageDialog(this, "Promedio recursivo: " + prom);
+    }    
+Ozymandias — 26/06/2024 11:38
+package procesos;
+
+import datos.CanalTV;
+
+public class VectorObjetos
+{
+    private CanalTV elementos[];
+    private int conta;
+            
+    public VectorObjetos(int tamaño)
+    {
+        elementos = new CanalTV[tamaño];
+        conta = 0;
+    }
+    
+    public int getConta()   { return conta; }
+
+    public CanalTV getElemento(int pos) { return elementos[pos]; }
+
+    public void adicionar(CanalTV dato)
+    {
+        elementos[conta] = dato;
+        conta = conta + 1;
+    }
+
+    public int buscarPorNro(int dato)   // búsqueda iterativa
+    {
+        int i;
+
+        for (i=0; i<conta; i=i+1)
+            if (elementos[i].nro == dato)
+                return i;
+            
+        return -1;
+    }
+    
+    public int buscarPorNro(int i, int dato)    // búsqueda recursiva
+    {
+        if (i < 0)
+            return -1;
+        else
+            if (dato == elementos[i].nro)
+                return i;
+        else
+                return buscarPorNro(i-1, dato); 
+    }
+}
+public class FrmPrincipal extends javax.swing.JFrame
+{
+    VectorObjetos vectorDeCanales;
+    CanalTV objCanal;
+    int n;
+    
+    public FrmPrincipal()
+    {
+        initComponents();
+        setLocationRelativeTo(this);
+        
+        n = 20;
+        vectorDeCanales = new VectorObjetos(n);
+    }
+    
+    public void mostrar(int i)  // método recursivo
+    {
+       if (i >= 0)
+       {
+           objCanal = vectorDeCanales.getElemento(i);
+           txaResultado.append(objCanal.nro + "\t" + objCanal.nombre + "\n" );
+           mostrar(i-1);
+       }
+    }
+public void limpiar()
+    {
+        txtNombre.setText("");
+        txtPais.setText("");
+        
+        txtNro.setText("");
+        txtNro.requestFocus();
+    }
+    
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        // TODO add your handling code here:
+        objCanal = new CanalTV();
+        
+        objCanal.nro = Integer.parseInt(txtNro.getText());
+        objCanal.nombre = txtNombre.getText();
+        objCanal.pais = txtPais.getText();
+        
+        vectorDeCanales.adicionar(objCanal);
+        limpiar();
+    }                                            
+private void btnMostrarIterativoActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+        // TODO add your handling code here:
+        int i;
+        txaResultado.setText("");
+        
+        for(i=0; i<vectorDeCanales.getConta(); i=i+1)
+        {
+            objCanal = vectorDeCanales.getElemento(i);
+            txaResultado.append(objCanal.nro + "\t" + objCanal.nombre + "\n");
+        }
+    }                                                   
+        
+    private void btnMostrarRecursivoActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+        // TODO add your handling code here:
+        txaResultado.setText("");
+        mostrar(vectorDeCanales.getConta()-1);
+    }                                                   
+
+    private void btnBuscarIterativoActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+        // TODO add your handling code here:
+        int aux;
+        int pos;
+        
+        aux = Integer.parseInt(txtNro.getText());
+        pos = vectorDeCanales.buscarPorNro(aux);
+        
+        if(pos != -1)
+        {
+            objCanal = vectorDeCanales.getElemento(pos);
+            txtNombre.setText(objCanal.nombre);
+            txtPais.setText(objCanal.pais);
+        }
+        else
+            JOptionPane.showMessageDialog(this, "Canal no está en el Vector");
+    }                                                  
+   private void btnBuscarRecursivoActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+        // TODO add your handling code here:
+        int aux;
+        int pos;
+        
+        aux = Integer.parseInt(txtNro.getText());
+        pos = vectorDeCanales.buscarPorNro(vectorDeCanales.getConta()-1, aux);
+        
+        if(pos != -1)
+        {
+            objCanal = vectorDeCanales.getElemento(pos);
+            txtNombre.setText(objCanal.nombre);
+            txtPais.setText(objCanal.pais);
+        }
+        else
+            JOptionPane.showMessageDialog(this, "Canal no está en el Vector");
+    } 
+Ozymandias — 10/07/2024 11:56
+package ventana;
+
+//importa todo
+import javax.swing.JOptionPane;
+import procesos.*;
+
+
+public class FrmPrincipal extends javax.swing.JFrame 
+{
+    ArbolNros arbolDeCanales;
+
+    public FrmPrincipal() {
+        initComponents();
+        
+        arbolDeCanales = new ArbolNros();
+    }
+    
+    public void limpiar(){
+        txtCanal.setText("");
+        txtCanal.requestFocus();
+    }
+    
+    public void MostrarPreNodo(Nodo p) //metodo recurisvo
+    {
+        if (p != null)
+        {
+            txaResultado.append((int)p.info + " ");
+            MostrarPreNodo(p.izq);
+            MostrarPreNodo(p.der);
+        }
+    }
+    
+    public void MostrarInOrden(Nodo p)
+    {
+        if (p != null)
+        {
+            MostrarInOrden(p.izq);
+            txaResultado.append((int)p.info + " ");
+            MostrarInOrden(p.der);
+        }
+    }
+    
+    public void MostrarPosOrden(Nodo p)
+    {
+        if (p != null)
+        {
+            MostrarInOrden(p.izq);
+            MostrarInOrden(p.der);
+            txaResultado.append((int)p.info + " ");
+            
+        }
+    }
+private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        int aux;
+        
+        aux = Integer.parseInt(txtCanal.getText());
+        arbolDeCanales.insertar(aux);
+        
+        limpiar();
+    }                                           
+
+    private void btnMostrarPreOrdenActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+      txaResultado.setText("");
+      MostrarPreNodo(arbolDeCanales.raiz);
+    }                                                  
+
+    private void btnMostrarInOrdenActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+        txaResultado.setText("");
+        MostrarInOrden(arbolDeCanales.raiz);
+    }                                                 
+
+    private void btnMostrarPosOrdenActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+        txaResultado.setText("");
+        MostrarPosOrden(arbolDeCanales.raiz);
+    }                                                  
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {                                          
+       int aux;
+       Nodo p;
+       
+       aux = Integer.parseInt(txtCanal.getText());
+       p = arbolDeCanales.buscar(aux);
+       
+       if (p != null)
+           JOptionPane.showMessageDialog(this, "Canal esta en el arbol");
+       else
+           JOptionPane.showMessageDialog(this, "no esta ese canal oe cerrano");
+    }
+Imagen
+package procesos;
+
+
+public class ArbolNros {
+    public Nodo raiz;
+    public ArbolNros()
+    {
+        raiz = null;
+    }
+    
+    public void insertar(double dato)
+    {
+        Nodo nuevo, actual, padre = null;
+
+        nuevo = new Nodo();
+            
+        nuevo.info = dato;
+        nuevo.izq  = null;
+        nuevo.der  = null;
+        
+        if (raiz == null)
+            raiz = nuevo;
+        else
+        {
+            actual = raiz;
+            
+            while (actual != null)
+            {
+                padre = actual;
+                if (dato < actual.info)
+                    actual = actual.izq;
+                else
+                    actual = actual.der;
+            }
+            
+            if (dato < padre.info)
+                padre.izq = nuevo;
+            else
+                padre.der = nuevo;
+        }
+    }
+    
+    public Nodo buscar(double dato)
+    {   Nodo p = raiz;
+        
+        while (p != null)
+        {
+            if ( dato == p.info)
+            return p;
+        else
+            if ( dato < p.info)
+                p = p.izq;
+            else
+                p = p.der;
+        }
+        
+        return null;
+    }
+    
+}
+package procesos;
+
+public class Nodo {
+    public double info;
+    public Nodo izq;
+    public Nodo der;
+}

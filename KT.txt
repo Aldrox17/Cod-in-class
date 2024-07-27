@@ -1,0 +1,807 @@
+IMPLEMENTACIONES:
+<uses-permission android:name="android.permission.INTERNET"/>
+implementation("io.coil-kt:coil-compose:2.0.0")
+//Colores:
+implementation("androidx.compose.material3:material3:1.2.1")
+//Nav pantalla boton cambiar
+implementation("androidx.navigation:navigation-compose:2.8.0-alpha07")
+
+class MainActivity : ComponentActivity() {
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            setContent {
+                Sesion_3Theme {
+                    Imagenes() // una funcion se debe crear siempre en
+
+                    }
+                }
+            }
+        }
+        //toda funcion debe tener composable
+        @Composable //pading(.dp)es para el borde que tendra una img o el contenido de la caja
+        fun Imagenes(){ //recien acá se puede abilitar, fillMaxSize ocupa el ancho y el alto el  fillMaxWith es mas para img
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .padding(5.dp),contentAlignment = Alignment.TopCenter){     //a veces puede salir Modifier = Mofierr.etc
+                Column(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp)) { //para poner una imagen pues como se ve xd
+                    AsyncImage(model = "https://static.jojowiki.com/images/3/3a/latest/20210617175837/Josuke_JJL_Infobox_Manga.png",
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop, //de acá hasta clip es para hacer circular la img
+                        modifier = Modifier
+                            .size(200.dp)
+                            .clip(CircleShape)
+                            .border(8.dp, Color.Red, CircleShape)
+                        )
+
+                    Text("Hola Mundo") //Mejor agrega cosas despues de Modifier si no lo pondras igual para evitar errores
+                    Text("Waos")
+
+AsyncImage(model = "https://static.jojowiki.com/images/3/3a/latest/20210617175837/Josuke_JJL_Infobox_Manga.png",
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(200.dp)
+                            .clip(RoundedCornerShape(20.dp))
+                            .border(8.dp, Color.Red, RoundedCornerShape(10.dp))
+                    )
+                    Box(contentAlignment = Alignment.BottomStart, modifier = Modifier.width(250.dp)) {
+                        AsyncImage(
+                            model = "https://upload.wikimedia.org/wikipedia/en/9/9d/MiyamotoMusashiVagabond.png",
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(250.dp)
+                        )
+
+                        Row(modifier = Modifier.fillMaxWidth().alpha(0.8f).background(Color.Green).height(50.dp)) {
+
+                            Column(modifier = Modifier) {
+                                Text("Musashi Miyamoto", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                                Text("Samurai del AÑO 1600 TAN TAN TAN")
+                            }
+
+                        }
+
+                    }
+                }
+
+            }
+
+        }
+
+
+
+    @Preview(showBackground = true)
+    @Composable
+    fun GreetingPreview() {
+        Sesion_3Theme {
+        Imagenes()  //para que una funcion se pueda ver tienes que dejarla por acá
+        }
+    }
+Ozymandias
+ ha fijado 
+un mensaje
+ en este canal. Ver todos los 
+mensajes fijados
+.
+ — 26/04/2024 19:17
+Ozymandias — 26/04/2024 22:19
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            MyApplicationTheme {
+                MiTextField()
+            }
+        }
+    }
+}
+
+@Composable
+fun MiTextField(){  //pa escribir
+
+    val x1 = 200.dp
+    val x2 = 250.dp
+    val x3 = 300.dp
+
+    var  valor1 by remember { mutableStateOf("") }
+    var  valor2 by remember { mutableStateOf("") }
+    var pass by remember { mutableStateOf(true)}
+    var contador by remember { mutableStateOf(0) }
+    var ancho by remember { mutableStateOf(x1) }
+
+    Box(contentAlignment =  Alignment.Center, modifier = Modifier.fillMaxSize()){
+        Column {
+
+            Spacer(modifier = Modifier.size(10.dp))// esto es el contador
+            Text("El numero es: $contador")
+
+            OutlinedTextField(value = valor1, onValueChange = { v1 -> valor1 = v1 },
+                label = { Text("Usuario")},
+                placeholder = { Text("solo numero")},
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                leadingIcon = { Icon(imageVector = Icons.Default.AccountCircle,contentDescription = null)},
+                visualTransformation = if (pass) PasswordVisualTransformation() else VisualTransformation.None
+            )
+            Spacer(modifier = Modifier.size(10.dp))
+            TextField(value = valor1, onValueChange = { v2 -> valor2 = v2 },
+                label = { Text("Usuario")},
+                placeholder = { Text("solo numero")},
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                leadingIcon = { Icon(imageVector = Icons.Default.AccountCircle,contentDescription = null)},
+                visualTransformation = if (pass) PasswordVisualTransformation() else VisualTransformation.None,
+            )
+Spacer(modifier = Modifier.size(10.dp)) // un boton que al darle clik aumenta un valor +5
+            OutlinedButton(onClick = {
+
+                ancho = when (ancho){ // esta vaina es pa que el boton cresca
+                    x1 -> x2
+                    x2 -> x3
+                    else -> x1
+                }
+                contador+=5
+            }, modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .width(ancho)) {
+               Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.size(ButtonDefaults.IconSpacing)
+                   )
+                Spacer(modifier = Modifier.size(10.dp))
+                Text("validar")
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    MyApplicationTheme {
+        MiTextField()
+    }
+}
+Ozymandias — 27/04/2024 13:07
+@Composable
+fun texto() {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.Start,
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Text(
+            text = "Discover",
+            style = TextStyle(
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            ),
+            modifier = Modifier.padding(top = 15.dp)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "mindful hiking",
+            style = TextStyle(
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            )
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "Este texto de acá es solo",
+            style = TextStyle(
+                fontSize = 16.sp,
+                color = Color.Black
+            )
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "de ejemplo para la prueba",
+            style = TextStyle(
+                fontSize = 16.sp,
+                color = Color.Black
+            )
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(
+            onClick = { /* Acción al hacer clic */ },
+            colors = ButtonDefaults.buttonColors(Color(0xFF800000)),
+            modifier = Modifier.align(Alignment.Start)
+        ) {
+            Text(text = "Try now")
+        }
+    }
+}
+
+
+
+@Composable
+fun imagen() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.BottomEnd
+    ) {
+        Image(
+            painter = rememberImagePainter("https://i.pinimg.com/564x/d7/92/76/d7927631d9006fe953bc8195d9ccedc2.jpg"),
+            contentDescription = "Imagen",
+            modifier = Modifier
+                .size(300.dp)
+        )
+    }
+}
+Ozymandias — 27/04/2024 15:07
+@Composable
+fun cafe() {
+
+    Box(modifier = Modifier.fillMaxSize()) {
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(
+
+                    start = 0.dp,
+                    end = 0.dp,
+                    bottom = 0.dp
+                )
+        ) {
+            Image(
+                painter = rememberImagePainter("https://i.pinimg.com/564x/2f/33/84/2f338497c3df9353af268dd0497bba05.jpg"),
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.FillBounds
+            )
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = AnnotatedString.Builder().apply {
+                        append("Coffe so good\n")
+                        withStyle(style = SpanStyle(fontSize = 24.sp)) {
+                            append("your taste buds\n")
+                        }
+                        withStyle(style = SpanStyle(fontSize = 24.sp)) {
+                            append("will love it")
+                        }
+                    }.toAnnotatedString(),
+                    color = Color.White,
+                    fontSize = 32.sp,
+                    modifier = Modifier.padding(top = 300.dp)
+                )
+                Text(
+                    text = "the best cofe and ikn what can i put here",
+                    color = Color.Gray,
+                    fontSize = 16.sp
+
+                )
+Button(
+                    onClick = { },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        contentColor = Color.White
+                    )
+                ) {
+                    Text(text = "Try now")
+                }
+            }
+        }
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewApp() {
+    MyApplicationnTheme {
+        cafe()
+    }
+}
+Ozymandias — 03/05/2024 20:41
+https://material-foundation.github.io/material-theme-builder/
+Material Theme Builder
+Theming for Material Design 3
+Ozymandias — 03/05/2024 22:09
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            MyApplicationTheme {
+                Surface (
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.primary
+                ){
+                    //Controller
+                    val navController = rememberNavController() // para que la informacion no se sobreponga, no se quede una vista pegada en otra
+                    NavHost(navController = navController , startDestination = "menu")
+                    {
+                        composable("menu"){ MenuView(navController)}
+                        composable("detalle"){ DetalleView(navController) }
+                    }
+                }
+
+            }
+        }
+    }
+}
+@Composable
+
+fun DetalleView(navController: NavController){
+    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+
+        Column(horizontalAlignment = Alignment.CenterHorizontally) { //para centrar boton
+            Image(painter = painterResource(id = R.drawable.joe), contentDescription = null )
+            Button(onClick =  {
+            navController.navigate("menu")
+            }){
+                Text("Mostrar")
+            }
+        }
+    }
+}
+@Composable
+fun MenuView(navController: NavController){
+    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+            Button(onClick =  {
+            navController.navigate("detalle")
+            }){
+                Text("Mostrar") }
+    }
+}
+
+@Composable
+fun MenuView()
+{
+    Scaffold (
+        topBar = { BarraSuperior() },
+        content = {reservado ->
+                  Surface (modifier = Modifier.padding(reservado)){
+                    Contenido()
+                  }
+        },
+        bottomBar = { BarraInferior() },
+        floatingActionButton = { BotonesFlotantes() }
+    )
+}
+Ozymandias — 11/05/2024 13:51
+horizontalAlignment= Alignment.Start, modifier= Modifier.width(200.dp)
+Ozymandias — 12/05/2024 0:55
+@Composable
+fun PantallaJetpackCompose() {
+    Surface(color = Color.Black) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+Expandir
+message.txt
+7 KB
+Ozymandias — 15/05/2024 9:45
+@Composable
+fun IconLayout() {
+    Row(
+        modifier = Modifier
+            .height(70.dp)
+            .fillMaxWidth(),
+Expandir
+message.txt
+7 KB
+Ozymandias — 17/05/2024 21:46
+Esqueleto del Card posible Parcial:
+@Preview(showBackground = true, widthDp = 300, heightDp = 550)
+@Composable
+fun miCardaView(){
+    Box(contentAlignment = Alignment.Center){
+        Card( elevation = CardDefaults.cardElevation(2.dp) , modifier = Modifier
+            .height(350.dp)
+            .width(150.dp)) {
+
+            Text("ZAWARUDO")
+
+        }
+    }
+}
+Ozymandias — 19/05/2024 14:16
+@Composable
+fun imagen(navController: NavHostController) {
+    var usuario by remember { mutableStateOf("") }
+    var contrasena by remember { mutableStateOf("") }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.logorazer),
+            contentDescription = "",
+            modifier = Modifier
+                .size(350.dp)
+                .padding(top = 50.dp, bottom = 10.dp)
+        )
+        Text(
+            text = "Inicia Sesion",
+            color = Color.White,
+            fontSize = 40.sp,
+            modifier = Modifier.padding(bottom = 50.dp)
+        )
+        OutlinedTextField(
+            value = usuario,
+            onValueChange = { newUsuario -> usuario = newUsuario },
+            label = { Text("Usuario") },
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
+                .padding(bottom = 10.dp),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            textStyle = TextStyle(color = Color.White)
+        )
+
+        OutlinedTextField(
+            value = contrasena,
+            onValueChange = { newContrasena -> contrasena = newContrasena },
+            label = { Text("Contraseña") },
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
+                .padding(bottom = 50.dp),
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            textStyle = TextStyle(color = Color.White),
+        )
+
+        Button(
+            onClick = { navController.navigate("inicioTienda") },
+            colors = ButtonDefaults.buttonColors(Color.Green)
+        ) {
+            Text("Ingresar")
+        }
+    }
+}
+Ozymandias — 25/05/2024 17:05
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun Cabecera() {
+
+    val context = LocalContext.current.applicationContext;
+    val options = arrayOf("San Isidro","La Molina","Miraflores");
+
+    var expanded by remember { mutableStateOf(false)    }
+    var selectedText by remember { mutableStateOf(options[0]) }
+
+    TopAppBar(
+        modifier = Modifier,
+
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            titleContentColor = MaterialTheme.colorScheme.primary,
+        ),
+        title = { Text("AppBar") },
+        navigationIcon = {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    imageVector = Icons.Filled.ArrowBack,
+                    contentDescription = "")
+            }
+        },
+        actions = {
+            IconButton(onClick = {expanded = !expanded}) {
+                Icon(
+                    imageVector = Icons.Default.MoreVert,
+                    contentDescription = null)
+
+            }
+            //Menu Desplegable
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = !expanded }
+            ) {
+                options.forEach { option ->
+                    DropdownMenuItem(
+                        text = { Text(option) },
+                        leadingIcon = {},
+                        trailingIcon = {},
+                        onClick = {
+                            selectedText = option;
+                            expanded = !expanded;
+                            Toast.makeText(context, option, Toast.LENGTH_LONG).show()
+                        })
+                }
+            }
+            //
+        }
+
+    )
+}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun Detalle(){
+    Box (modifier = Modifier.fillMaxSize()){
+        val context = LocalContext.current.applicationContext;
+        val options = arrayOf("San Isidro","La Molina","Miraflores");
+
+        var expanded by remember { mutableStateOf(false)    }
+        var selectedText by remember { mutableStateOf(options[0]) }
+
+        ExposedDropdownMenuBox(
+            expanded = expanded,
+            onExpandedChange = {expanded = !expanded}) {
+            TextField(
+                value = selectedText,
+                onValueChange = {},
+                trailingIcon = {ExposedDropdownMenuDefaults.TrailingIcon(expanded = !expanded)},
+                modifier = Modifier.menuAnchor()
+            )
+            ExposedDropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = !expanded }) {
+                //Aquí van los ítems del menú, de forma individual
+                options.forEach { item ->
+                    DropdownMenuItem(
+                        text = { Text(item) },
+                        leadingIcon = {
+                          Icon(
+                              imageVector = Icons.Default.AccountCircle,
+                              contentDescription = null,
+                              tint = MaterialTheme.colorScheme.error)
+                        },
+                        trailingIcon = {},
+                        onClick = {
+                            selectedText = item;
+                            expanded = !expanded;
+                            Toast.makeText(context, item, Toast.LENGTH_LONG).show()
+                        }
+                    )
+                }
+            }
+        }
+    }
+}
+//shee//
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SheetView(navController: NavHostController) {
+
+    val sheetState = rememberModalBottomSheetState();
+    val scope = rememberCoroutineScope();
+    var checkedState = remember { mutableStateOf(false) }
+
+    Box(
+        contentAlignment = Alignment.TopCenter,
+        modifier = Modifier.fillMaxSize()){
+        Column {
+            Button(
+                modifier = Modifier.padding(vertical = 30.dp),
+                onClick = { scope.launch { sheetState.show() } }) {
+                Text("Mostrar Sheet");
+            }
+            Switch(
+                checked = checkedState.value,
+                onCheckedChange = { checkedState.value = it }
+            )
+            Row (verticalAlignment = Alignment.CenterVertically){
+                Text("Selecciona una opción")
+                Checkbox(
+                    checked = checkedState.value,
+                    onCheckedChange = { checkedState.value = it }
+                )
+            }
+            if (sheetState.isVisible) {
+                ModalBottomSheet(
+                    onDismissRequest = { scope.launch { sheetState.hide()}},
+                    sheetState = sheetState,
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.primaryContainer,)
+                {
+                    Text("Sheet")
+                    Text("Muito")
+                    Text("Bolognesa")
+                    Text("Konichiwa")
+                    Text("Bonjour")
+                    Text("Gutten tag")
+                }
+            }
+        }
+
+    }
+}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CalendarView(navController: NavHostController) {
+    Text("Calendario")
+    val datePickerState = rememberDatePickerState()
+    val timePickerState = rememberTimePickerState()
+    Column {
+        DatePicker(
+            state = datePickerState,
+            modifier = Modifier.background(MaterialTheme.colorScheme.onPrimary)
+        )
+        Text(text = "Selected ${datePickerState.selectedDateMillis}")
+
+        TimePicker(
+            state = timePickerState,
+            modifier = Modifier.background(MaterialTheme.colorScheme.onPrimary)
+            )
+    }
+}
+Ozymandias — 25/05/2024 18:36
+@Viktor Vaughn
+Ozymandias — 31/05/2024 22:22
+@Composable
+fun TabRowView() {
+    var tabIndex by remember { mutableStateOf(0) }
+    val tabs = arrayOf("Home","Productos","Perfil")
+
+
+    Column (modifier = Modifier.fillMaxWidth()){
+        TabRow(
+            selectedTabIndex = tabIndex,
+            modifier = Modifier,
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.surface,
+            indicator = {tabPositions -> TabRowDefaults.apply {
+                Divider(
+                    modifier = Modifier
+                        .height(4.dp)
+                        .padding(horizontal = 15.dp)
+                        .tabIndicatorOffset(tabPositions[tabIndex]),
+                    color = Color.Blue
+                )
+            }
+
+            } ,
+            divider = {}
+        )
+        {
+// contenido del tab
+            tabs.forEachIndexed{index, tab -> Tab(
+                selected = tabIndex == index,
+                text = {Text(tab, fontSize = 20.sp, color = Color.Red)},
+                onClick = {tabIndex = index},
+                icon = {
+                    when (index) {
+                        0 -> Icon(imageVector = Icons.Filled.Home, contentDescription = "", tint = Color.Green)
+                        1 -> Icon(imageVector = Icons.Filled.Info, contentDescription = "")
+                        2 -> Icon(imageVector = Icons.Filled.AccountCircle, contentDescription = "")
+                    }
+                },
+
+                )
+            }
+        }
+
+// Destination
+        when (tabIndex){
+            0 -> Screen0()
+            1 -> Screen1()
+            2 -> Screen2()
+        }
+    }
+}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun Screen0(){ //para seleccionar una variable de tipo bool que pide el FilterChip
+    var selected by remember { mutableStateOf(false) }
+    Box(contentAlignment = Alignment.Center ,modifier = Modifier.fillMaxHeight())
+    {
+        Column {
+            AsyncImage(model = "", contentDescription = null)
+
+            Text(text = "Screen 0")
+
+            Row(modifier = Modifier.fillMaxSize()) {
+                //chips
+                AssistChip(
+                    modifier = Modifier,
+                    onClick = { /*TODO*/ },
+                    label = { Text(text = "AssitChip") },
+                    leadingIcon = { Icon(imageVector = Icons.Default.Check, contentDescription = null) },
+                    trailingIcon = { Icon(imageVector = Icons.Default.Add, contentDescription = null) },
+                    colors = AssistChipDefaults.assistChipColors(Color.Blue) ,
+                )
+                FilterChip(
+                    modifier = Modifier,
+                    selected = true,
+                    onClick = { selected =!selected },
+                    label = { Text(text = "AssitChip") },
+                    leadingIcon = {
+                        //como es una var tipo bool pues ya sabes ya
+                        if (selected){
+                            Icon(imageVector = Icons.Default.Check, contentDescription = null)
+                        }else{
+                            null
+                        }
+                                  },
+                    trailingIcon = { Icon(imageVector = Icons.Default.Add, contentDescription = null) },
+                    colors = FilterChipDefaults.filterChipColors(MaterialTheme.colorScheme.primary) ,
+                )
+            }
+        }
+
+    }
+}
+@Composable
+fun Screen1(){
+    var activar by remember { mutableStateOf(false) }
+    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()){
+        Column() {
+            AsyncImage(model ="https://assetsio.gnwcdn.com/ss_947db45ff0fb6da0e2d9031f0f71a32b740ed612.1920x1080.jpg?width=1920&height=1920&fit=bounds&quality=80&format=jpg&auto=webp" , contentDescription = null)
+        }
+        
+        Button(onClick = { activar =!activar }) {
+            Text(text = "Screen 1")
+        }
+
+        if (activar){
+            AlertDialog(
+                onDismissRequest = { activar = !activar },
+                icon = { Icon(imageVector = Icons.Default.Close, contentDescription = null, modifier = Modifier.size(60.dp)) },
+                title = { Text(text = "Mensaje principal")},
+                text = { Text(text = "Subtitulo")},
+                confirmButton = {
+
+                                Button(onClick = {activar =!activar }) {
+                                    Text("Acepto")
+                                }
+
+                },
+                dismissButton = {
+
+                                Button(onClick = { activar =!activar }) {
+                                    Text("No acepto")
+                                }
+
+                },
+                containerColor = MaterialTheme.colorScheme.primary ,
+                iconContentColor = MaterialTheme.colorScheme.primary ,
+                titleContentColor = MaterialTheme.colorScheme.surface ,
+                textContentColor = MaterialTheme.colorScheme.surface ,
+            )
+        }
+
+    }
+}
+@Composable
+fun Screen2(){
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+    Scaffold(
+        snackbarHost = {
+              SnackbarHost(
+              hostState = snackbarHostState)
+        },
+        topBar = {},
+        content = { innerPadding -> Surface (
+
+            modifier = Modifier.padding(innerPadding)
+
+        ){}
+                  },
+        bottomBar = {},
+        floatingActionButton = {
+
+            ExtendedFloatingActionButton(onClick = { scope.launch {
+                snackbarHostState.showSnackbar(
+                    "Dale dislike pe weon",
+                    actionLabel = "ok",
+                    duration = SnackbarDuration.Long
+                )
+            }
+                                                   },
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor =  MaterialTheme.colorScheme.surface,
+                shape = CircleShape
+            ) {
+                Icon(imageVector = Icons.Default.Face, contentDescription = null)
+                Text(text = "Activar Doritos ")
+            }
+
+        }
+    )
+}
